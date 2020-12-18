@@ -17,7 +17,7 @@ function clearQrCode() {
 
 
 button.onclick = function(element) {
-  // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     
     clearQrCode();
 
@@ -58,14 +58,22 @@ button.onclick = function(element) {
           // wait for the pw to arrive
           fetch(`http://localhost:5000/password/${id}`)
             .then(res => res.json())
-            .then(res => chrome.tabs.executeScript(
-              tabs[0].id,
-              {code: `document.querySelector("input[type='password']").value = ${res.pw};`})
-            ).catch(e => {
+            .then(res => {
+              chrome.tabs.executeScript(
+                tabs[0].id,
+                {code: `const pwInput = document.querySelector("input[type='password']"); pwInput.value = '${res.pw}'; pwInput.form.submit();`});
+              
+              clearInterval(timer);
+              clearQrCode();
+              document.getElementById("timer").innerHTML = encodeURI("✔ Password beamed ✔\nYou can now login");
+              document.getElementById("requestPassword").style.display = "none";
+
+            })
+            .catch(e => {
               document.getElementById("requestPassword").style.visibility = "visible";
               document.getElementById("timer").innerHTML = "EXPIRED GENERATE NEW CODE";
               clearQrCode();
             });
         });
-  // });
+  });
 };

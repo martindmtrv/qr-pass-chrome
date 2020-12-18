@@ -10,10 +10,10 @@ const waiting: Record<string, Response> = {};
 app.use(cors());
 app.use(express.json());
 
-app.use((req, res, next) => {
-    console.log(req.url, req.method, req.body);
-    next();
-})
+// app.use((req, res, next) => {
+//     console.log(req.url, req.method);
+//     next();
+// })
 
 
 // this endpoint will give the cuid for the QR code to generate

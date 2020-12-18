@@ -11,10 +11,10 @@ const port = 5000;
 const waiting = {};
 app.use(cors_1.default());
 app.use(express_1.default.json());
-app.use((req, res, next) => {
-    console.log(req.url, req.method, req.body);
-    next();
-});
+// app.use((req, res, next) => {
+//     console.log(req.url, req.method);
+//     next();
+// })
 // this endpoint will give the cuid for the QR code to generate
 app.post("/password", (req, res) => {
     const id = cuid_1.default();
