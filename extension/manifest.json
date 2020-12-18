@@ -1,0 +1,14 @@
+{
+  "name": "QrFactorAuth",
+  "version": "1.0",
+  "description": "Enter passwords via a generated QR code on your mobile device!",
+  "permissions": ["storage", "declarativeContent", "activeTab"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "popup.html"
+  },
+  "manifest_version": 2
+}
